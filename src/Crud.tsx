@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
@@ -6,8 +7,12 @@ const About = () => {
   const api = "https://to-dos-api.softclub.tj/api/to-dos";
   const imgapi = "https://to-dos-api.softclub.tj/images/";
 
-  const [data, setdata] = useState([]);
-  const [elem, setelem] = useState({ id: null, name: "", description: "" });
+  const [data, setdata] = useState<any[]>([]);
+  const [elem, setelem] = useState<any>({
+    id: null,
+    name: "",
+    description: "",
+  });
 
   async function getUsers() {
     try {
@@ -18,7 +23,7 @@ const About = () => {
     }
   }
 
-  async function adduser(upuser) {
+  async function adduser(upuser: any) {
     try {
       await axios.post(api, upuser);
       getUsers();
@@ -27,17 +32,22 @@ const About = () => {
     }
   }
 
-  async function edituser(upuser) {
+  async function edituser(upuser: any) {
     try {
       await axios.put(api, upuser);
       getUsers();
-      setelem({ id: null, name: "", description: "" });
+
+      setelem({
+        id: null,
+        name: "",
+        description: "",
+      });
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(id: number) {
     try {
       await axios.delete(`${api}?id=${id}`);
       getUsers();
@@ -46,14 +56,20 @@ const About = () => {
     }
   }
 
-  const { values, handleChange, handleSubmit, setFieldValue, resetForm } = useFormik({
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
     initialValues: {
       name: "",
       description: "",
-      file: null,
+      file: null as any,
     },
 
-    onSubmit: (values) => {
+    onSubmit: (values: any) => {
       const formdata = new FormData();
 
       formdata.append("Name", values.name);
@@ -65,7 +81,7 @@ const About = () => {
     },
   });
 
-  const handelsubmit = (e) => {
+  const handelsubmit = (e: any) => {
     e.preventDefault();
 
     const upuser = {
@@ -83,50 +99,97 @@ const About = () => {
 
   return (
     <div>
-
       <h1>Add user</h1>
 
       <form onSubmit={handleSubmit}>
-        <input className="border" name="name" value={values.name} onChange={handleChange} type="text" placeholder="Name" />
-        <input className="border" name="description" value={values.description} onChange={handleChange} type="text" placeholder="Description" />
-        <input className="border" onChange={(e) => setFieldValue("file", e.target.files[0])} name="file" type="file" />
+        <input
+          className="border"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          type="text"
+          placeholder="Name"
+        />
+
+        <input
+          className="border"
+          name="description"
+          value={values.description}
+          onChange={handleChange}
+          type="text"
+          placeholder="Description"
+        />
+
+        <input
+          className="border"
+          onChange={(e: any) =>
+            setFieldValue("file", e.target.files[0])
+          }
+          name="file"
+          type="file"
+        />
+
         <button type="submit">Add user</button>
       </form>
 
-      {
-        elem.id ?
+      {elem.id ? (
         <div>
           <h1>Edit user</h1>
 
           <form onSubmit={handelsubmit}>
-            <input className="border" defaultValue={elem.name} name="name" type="text" />
-            <input className="border" defaultValue={elem.description} name="description" type="text" />
+            <input
+              className="border"
+              defaultValue={elem.name}
+              name="name"
+              type="text"
+            />
+
+            <input
+              className="border"
+              defaultValue={elem.description}
+              name="description"
+              type="text"
+            />
+
             <button type="submit">Edit user</button>
-            <button type="button" onClick={() => setelem({ id: null, name: "", description: "" })}>Cancel</button>
+
+            <button
+              type="button"
+              onClick={() =>
+                setelem({
+                  id: null,
+                  name: "",
+                  description: "",
+                })
+              }
+            >
+              Cancel
+            </button>
           </form>
         </div>
-        : null
-      }
+      ) : null}
 
-      {
-        data.map((e) => {
-          return (
-            <div key={e.id} className="border border-gray-400 p-4 m-2 rounded-lg w-[200px]">
+      {data.map((e: any) => {
+        return (
+          <div
+            key={e.id}
+            className="border border-gray-400 p-4 m-2 rounded-lg w-[200px]"
+          >
+            <img src={imgapi + e?.images?.[0]?.imageName} alt="" />
 
-              <img src={imgapi + e?.images?.[0]?.imageName} alt="" />
+            <h2>{e.name}</h2>
+            <p>{e.description}</p>
 
-              <h2>{e.name}</h2>
-              <p>{e.description}</p>
+            <button onClick={() => handleDelete(e.id)}>
+              Delete
+            </button>
 
-              <button onClick={() => handleDelete(e.id)}>Delete</button>
-
-              <button onClick={() => setelem(e)}>Edit</button>
-
-            </div>
-          );
-        })
-      }
-
+            <button onClick={() => setelem(e)}>
+              Edit
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 };

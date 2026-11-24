@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Section1 from './Components/Figma/Section1'
 import Section2 from './Components/Figma/Section2'
 import Section3 from './Components/Figma/Section3'
