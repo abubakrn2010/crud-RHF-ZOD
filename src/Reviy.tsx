@@ -1,149 +1,145 @@
-import React from 'react'
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form"
+
+
+type FormValues = {
+  name: string;
+  description: string;
+  email: string;
+  file: FileList;
+};
 
 const Reviy = () => {
+  const api = "https://to-dos-api.softclub.tj/api/to-dos";
+  const imgapi = "https://to-dos-api.softclub.tj/images/";
+
+  const [data, setdata] = useState([]);
+  const [elem, setelem] = useState({ id: null, name: "", description: "" });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    defaultValues: {
+      name: "",
+      description: "",
+      email: "",
+    },
+  });
+
+  async function getUsers() {
+    try {
+      const { data } = await axios.get(api);
+      setdata(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function adduser(upuser) {
+    try {
+      await axios.post(api, upuser);
+      getUsers();
+      reset();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function edituser(upuser) {
+    try {
+      await axios.put(api, upuser);
+      getUsers();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleDelete(id) {
+    try {
+      await axios.delete(`${api}?id=${id}`);
+      getUsers();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const AddSubmit = (values: FormValues) => {
+    const formdata = new FormData();
+
+    formdata.append("Name", values.name);
+    formdata.append("Description", values.description);
+    formdata.append("Images", values.file[0]);
+
+    adduser(formdata);
+  };
+
+  const EditSubmit = (e) => {
+    e.preventDefault();
+
+    const upuser = {
+      id: elem.id,
+      name: e.target.name.value,
+      description: e.target.description.value,
+    };
+
+    edituser(upuser);
+      setelem({ id: null, name: "", description: "" });
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <div>
-      
-<section className="bg-[#fff3e7] py-20 px-4">
 
-  <div className="max-w-[1170px] mx-auto">
+      <h1>Add user</h1>
 
-    <div className="text-center mb-14">
-      <p className="text-[#a45b35] font-bold tracking-widest">
-        CUSTOMER REVIEWS
-      </p>
+   <form onSubmit={handleSubmit(AddSubmit)}>
+        <input className="border" {...register("name", { required: "Name is required", minLength: { value: 2, message: "Minimum 2 letters" }, maxLength: { value: 20, message: "Maximum 20 letters" } })} type="text" placeholder="Name" />
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-      <h2 className="text-4xl md:text-5xl font-bold font-serif mt-4">
-        What People Say About Us
-      </h2>
+        <input className="border" {...register("description", { required: "Description is required", minLength: { value: 5, message: "Minimum 5 letters" }, maxLength: { value: 100, message: "Maximum 100 letters" } })} type="text" placeholder="Description" />
+        {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-      <p className="text-[#765e50] mt-5">
-        We love making our customers happy. Here's what they think about CaféAura.
-      </p>
-    </div>
+        <input className="border" type="file" {...register("file", { required: "Image is required" })} />
+        {errors.file && <p className="text-red-500">{errors.file.message}</p>}
 
-    <div className="bg-white rounded-3xl p-8 mb-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
+        <button type="submit">Add user</button>
+      </form>
 
-      <div className="text-center">
-        <h2 className="text-6xl font-bold text-[#542b17]">4.9</h2>
-        <p className="text-yellow-500 text-2xl mt-2">★★★★★</p>
-        <p className="text-[#765e50] mt-2">Based on customer feedback</p>
-      </div>
-
-      <div className="w-full md:w-1/2">
-        <div className="flex items-center gap-3 mb-3">
-          <span>5 ★</span>
-          <div className="bg-[#eee0d3] h-3 rounded-full flex-1">
-            <div className="bg-[#a45b35] h-3 rounded-full w-[90%]"></div>
-          </div>
-          <span>90%</span>
+      {elem.id ? (
+        <div>
+          <h1>Edit user</h1>
+          <form onSubmit={EditSubmit}>
+            <input className="border" defaultValue={elem.name} name="name" type="text" required />
+            <input className="border" defaultValue={elem.description} name="description" type="text" required />
+            <button type="submit">Edit user</button>
+            <button type="button" onClick={() => setelem({ id: null, name: "", description: "" })}>Cancel</button>
+          </form>
         </div>
+      ) : null}
 
-        <div className="flex items-center gap-3 mb-3">
-          <span>4 ★</span>
-          <div className="bg-[#eee0d3] h-3 rounded-full flex-1">
-            <div className="bg-[#a45b35] h-3 rounded-full w-[75%]"></div>
+       {data.map((e) => {
+        return (
+          <div key={e.id} className="border border-gray-400 p-4 m-2 rounded-lg w-[200px]">
+            <img src={imgapi + e?.images?.[0]?.imageName} alt="" />
+            <h2>{e.name}</h2>
+            <p>{e.description}</p>
+            <button onClick={() => handleDelete(e.id)}>Delete</button>
+            <button onClick={() => setelem(e)}>Edit</button>
           </div>
-          <span>75%</span>
-        </div>
-
-        <div className="flex items-center gap-3 mb-3">
-          <span>3 ★</span>
-          <div className="bg-[#eee0d3] h-3 rounded-full flex-1">
-            <div className="bg-[#a45b35] h-3 rounded-full w-[30%]"></div>
-          </div>
-          <span>30%</span>
-        </div>
-      </div>
+          );
+        })
+      }
 
     </div>
+  );
+};
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <div className="bg-white rounded-2xl p-7 shadow-sm">
-        <p className="text-yellow-500 text-xl">★★★★★</p>
-
-        <p className="text-[#765e50] leading-7 mt-5">
-          "The coffee here is amazing! The atmosphere is cozy,
-          the staff are friendly, and I really love their vanilla latte."
-        </p>
-
-        <div className="flex items-center gap-4 mt-7">
-          <img
-            src="https://i.pravatar.cc/100?img=47"
-            className="w-14 h-14 rounded-full object-cover"
-            alt="Customer Sarah"
-          />
-
-          <div>
-            <h3 className="font-bold">Sarah Johnson</h3>
-            <p className="text-sm text-[#a45b35]">Regular Customer</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl p-7 shadow-sm">
-        <p className="text-yellow-500 text-xl">★★★★★</p>
-
-        <p className="text-[#765e50] leading-7 mt-5">
-          "One of my favorite places to relax. Their desserts
-          are delicious and the coffee is always fresh."
-        </p>
-
-        <div className="flex items-center gap-4 mt-7">
-          <img
-            src="https://i.pravatar.cc/100?img=12"
-            className="w-14 h-14 rounded-full object-cover"
-            alt="Customer Daniel"
-          />
-
-          <div>
-            <h3 className="font-bold">Daniel Smith</h3>
-            <p className="text-sm text-[#a45b35]">Coffee Lover</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl p-7 shadow-sm">
-        <p className="text-yellow-500 text-xl">★★★★★</p>
-
-        <p className="text-[#765e50] leading-7 mt-5">
-          "Beautiful interior, delicious cappuccino, and
-          excellent service. I recommend CaféAura to everyone!"
-        </p>
-
-        <div className="flex items-center gap-4 mt-7">
-          <img
-            src="https://i.pravatar.cc/100?img=44"
-            className="w-14 h-14 rounded-full object-cover"
-            alt="Customer Emma"
-          />
-
-          <div>
-            <h3 className="font-bold">Emma Wilson</h3>
-            <p className="text-sm text-[#a45b35]">Happy Customer</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div className="text-center mt-14">
-      <h3 className="text-2xl font-bold font-serif">
-        Your Opinion Matters!
-      </h3>
-
-      <p className="text-[#765e50] mt-3">
-        Thank you for being part of our CaféAura family.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-    </div>
-  )
-}
-
-export default Reviy
+export default Reviy;
