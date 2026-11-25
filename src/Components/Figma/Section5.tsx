@@ -1,89 +1,58 @@
 
 const Section5 = () => {
   return (
-    <section id="reviews" className="w-full py-16 bg-[#fff3e7]">
+    <section className="w-full py-16 bg-[#eeeee3]">
 
       <div className="max-w-[1170px] mx-auto px-4">
 
         <div className="text-center mb-10">
 
-          <p className="text-[#a45b35] font-semibold">Testimonials</p>
+          <p className="text-[#78865b] font-semibold">
+            Why Choose Us
+          </p>
 
           <h2 className="text-[32px] sm:text-[42px] font-bold font-serif mt-2">
-            What Our Customers Say
+            What Makes Us Special
           </h2>
 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div className="bg-[#fffaf5] p-6 rounded-2xl shadow-sm">
+          <div className="bg-white p-8 rounded-2xl text-center">
+            <div className="text-5xl">🪵</div>
 
-            <div className="flex items-center gap-4">
+            <h3 className="font-bold text-xl mt-5">
+              Best Quality
+            </h3>
 
-              <img
-                src="https://i.pravatar.cc/100?img=47"
-                className="w-16 h-16 rounded-full object-cover"
-              />
-
-              <div>
-                <h3 className="font-bold">Sarah Khan</h3>
-                <p className="text-[#a45b35] text-sm">★★★★★</p>
-              </div>
-
-            </div>
-
-            <p className="text-[#765e50] mt-5 leading-6">
-              "Best coffee in town! The atmosphere is amazing.
-              I love coming here every weekend."
+            <p className="text-gray-600 mt-4 leading-6">
+              We use the best materials to create strong and beautiful furniture.
             </p>
-
           </div>
 
-          <div className="bg-[#fffaf5] p-6 rounded-2xl shadow-sm">
+          <div className="bg-white p-8 rounded-2xl text-center">
+            <div className="text-5xl">🚚</div>
 
-            <div className="flex items-center gap-4">
+            <h3 className="font-bold text-xl mt-5">
+              Free Delivery
+            </h3>
 
-              <img
-                src="https://i.pravatar.cc/100?img=12"
-                className="w-16 h-16 rounded-full object-cover"
-              />
-
-              <div>
-                <h3 className="font-bold">Ali Raza</h3>
-                <p className="text-[#a45b35] text-sm">★★★★★</p>
-              </div>
-
-            </div>
-
-            <p className="text-[#765e50] mt-5 leading-6">
-              "Great place, delicious coffee and friendly staff.
-              Highly recommended!"
+            <p className="text-gray-600 mt-4 leading-6">
+              We deliver your favorite furniture directly to your home.
             </p>
-
           </div>
 
-          <div className="bg-[#fffaf5] p-6 rounded-2xl shadow-sm">
+          <div className="bg-white p-8 rounded-2xl text-center">
+            <div className="text-5xl">⭐</div>
 
-            <div className="flex items-center gap-4">
+            <h3 className="font-bold text-xl mt-5">
+              Best Prices
+            </h3>
 
-              <img
-                src="https://i.pravatar.cc/100?img=44"
-                className="w-16 h-16 rounded-full object-cover"
-              />
-
-              <div>
-                <h3 className="font-bold">Maria Smith</h3>
-                <p className="text-[#a45b35] text-sm">★★★★★</p>
-              </div>
-
-            </div>
-
-            <p className="text-[#765e50] mt-5 leading-6">
-              "A perfect spot to relax and work.
-              The coffee tastes wonderful!"
+            <p className="text-gray-600 mt-4 leading-6">
+              Enjoy beautiful furniture at affordable prices.
             </p>
-
           </div>
 
         </div>

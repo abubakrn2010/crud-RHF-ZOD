@@ -1,98 +1,70 @@
 
 const Section3 = () => {
   return (
-    <section className="w-full py-16 bg-[#fff3e7]">
+    <section id="products" className="w-full py-16 bg-[#eeeee3]">
 
       <div className="max-w-[1170px] mx-auto px-4">
 
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-5 mb-10">
+        <div className="text-center mb-10">
 
-          <div>
-            <p className="text-[#a45b35] font-semibold mb-3">★ Best Sellers</p>
+          <p className="text-[#78865b] font-semibold">
+            Our Collection
+          </p>
 
-            <h2 className="text-[32px] sm:text-[42px] font-bold font-serif">
-              Our Popular Drinks
-            </h2>
-
-            <p className="text-[#765e50] mt-3">
-              Discover our most loved drinks by our customers.
-            </p>
-          </div>
-
-          <a href="#contact" className="bg-[#542b17] text-white px-6 py-3 rounded-full text-sm">
-            View All Menu →
-          </a>
+          <h2 className="text-[32px] sm:text-[42px] font-bold font-serif mt-2">
+            Best Selling Products
+          </h2>
 
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div className="bg-[#fffaf5] rounded-2xl p-4 shadow-sm hover:shadow-lg transition">
-
+          <div className="bg-white rounded-2xl overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=85"
-              className="w-full h-[220px] object-cover rounded-xl"
+              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600"
+              className="w-full h-[260px] object-cover"
             />
 
-            <h3 className="font-bold text-lg mt-4">Caramel Macchiato</h3>
+            <div className="p-5">
+              <h3 className="font-bold text-xl">Modern Sofa</h3>
+              <p className="text-[#78865b] font-bold mt-3">$450</p>
 
-            <p className="text-[#a45b35] font-bold mt-2">$5.99</p>
-
-            <button className="w-full bg-[#542b17] text-white py-3 rounded-full mt-4 hover:bg-[#75452b]">
-              Add to Cart
-            </button>
-
+              <button className="bg-[#596344] text-white px-6 py-3 rounded-full mt-5">
+                Buy Now →
+              </button>
+            </div>
           </div>
 
-          <div className="bg-[#fffaf5] rounded-2xl p-4 shadow-sm hover:shadow-lg transition">
-
+          <div className="bg-white rounded-2xl overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=500&q=85"
-              className="w-full h-[220px] object-cover rounded-xl"
+              src="https://images.unsplash.com/photo-1503602642458-232111445657?w=600"
+              className="w-full h-[260px] object-cover"
             />
 
-            <h3 className="font-bold text-lg mt-4">Vanilla Latte</h3>
+            <div className="p-5">
+              <h3 className="font-bold text-xl">Wooden Chair</h3>
+              <p className="text-[#78865b] font-bold mt-3">$120</p>
 
-            <p className="text-[#a45b35] font-bold mt-2">$5.49</p>
-
-            <button className="w-full bg-[#542b17] text-white py-3 rounded-full mt-4 hover:bg-[#75452b]">
-              Add to Cart
-            </button>
-
+              <button className="bg-[#596344] text-white px-6 py-3 rounded-full mt-5">
+                Buy Now →
+              </button>
+            </div>
           </div>
 
-          <div className="bg-[#fffaf5] rounded-2xl p-4 shadow-sm hover:shadow-lg transition">
-
+          <div className="bg-white rounded-2xl overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1572286258217-215cf8e9f3a1?auto=format&fit=crop&w=500&q=85"
-              className="w-full h-[220px] object-cover rounded-xl"
+              src="https://images.unsplash.com/photo-1499933374294-4584851497cc?w=600"
+              className="w-full h-[260px] object-cover"
             />
 
-            <h3 className="font-bold text-lg mt-4">Mocha Delight</h3>
+            <div className="p-5">
+              <h3 className="font-bold text-xl">Coffee Table</h3>
+              <p className="text-[#78865b] font-bold mt-3">$180</p>
 
-            <p className="text-[#a45b35] font-bold mt-2">$5.99</p>
-
-            <button className="w-full bg-[#542b17] text-white py-3 rounded-full mt-4 hover:bg-[#75452b]">
-              Add to Cart
-            </button>
-
-          </div>
-
-          <div className="bg-[#fffaf5] rounded-2xl p-4 shadow-sm hover:shadow-lg transition">
-
-            <img
-              src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=500&q=85"
-              className="w-full h-[220px] object-cover rounded-xl"
-            />
-
-            <h3 className="font-bold text-lg mt-4">Cold Brew</h3>
-
-            <p className="text-[#a45b35] font-bold mt-2">$4.99</p>
-
-            <button className="w-full bg-[#542b17] text-white py-3 rounded-full mt-4 hover:bg-[#75452b]">
-              Add to Cart
-            </button>
-
+              <button className="bg-[#596344] text-white px-6 py-3 rounded-full mt-5">
+                Buy Now →
+              </button>
+            </div>
           </div>
 
         </div>

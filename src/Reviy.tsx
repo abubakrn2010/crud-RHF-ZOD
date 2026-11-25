@@ -1,25 +1,25 @@
-
 import axios from "axios";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+const userSchema = z.object({
+  name: z.string().min(2, "Minimum 2 letters").max(20, "Maximum 20 letters"),
+  description: z.string().min(5, "Minimum 5 letters").max(100, "Maximum 100 letters"),
+  file: z.custom<FileList>((files) => files instanceof FileList && files.length > 0, "Image is required"),
+});
+
+type UserForm = z.infer<typeof userSchema>;
 
 const Reviy = () => {
   const api = "https://to-dos-api.softclub.tj/api/to-dos";
   const imgapi = "https://to-dos-api.softclub.tj/images/";
 
   const [data, setdata] = useState<any[]>([]);
-  const [elem, setelem] = useState<any>({
-    id: null,
-    name: "",
-    description: "",
-  });
+  const [elem, setelem] = useState<any>({ id: null, name: "", description: "" });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<UserForm>({ resolver: zodResolver(userSchema) });
 
   async function getUsers() {
     try {
@@ -58,135 +58,76 @@ const Reviy = () => {
     }
   }
 
-  const AddSubmit = (values: any) => {
+  const AddSubmit = (values: UserForm) => {
     const formdata = new FormData();
-
     formdata.append("Name", values.name);
     formdata.append("Description", values.description);
     formdata.append("Images", values.file[0]);
-
     adduser(formdata);
   };
 
   const EditSubmit = (e: any) => {
     e.preventDefault();
-
-    const upuser = {
+    const upuser = { 
       id: elem.id,
-      name: e.target.name.value,
-      description: e.target.description.value,
-    };
-
+       name: e.target.name.value,
+        description: e.target.description.value 
+      };
     edituser(upuser);
-
-    setelem({
-      id: null,
-      name: "",
-      description: "",
-    });
+    setelem({ id: null, name: "", description: "" });
   };
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  useEffect(() => { getUsers(); }, []);
 
   return (
     <div>
-      <h1>Add user</h1>
+      <div>
+        <h1>Add user</h1>
+        <form onSubmit={handleSubmit(AddSubmit)}>
 
-      <form onSubmit={handleSubmit(AddSubmit)}>
-        <input
-          className="border"
-          {...register("name", {
-            required: "Name is required",
-            minLength: { value: 2, message: "Minimum 2 letters" },
-            maxLength: { value: 20, message: "Maximum 20 letters" },
-          })}
-          type="text"
-          placeholder="Name"
-        />
-        {errors.name && <p className="text-red-500">Name is required</p>}
+          <input className="border" {...register("name")} type="text" placeholder="Name" />
 
-        <input
-          className="border"
-          {...register("description", {
-            required: "Description is required",
-            minLength: { value: 5, message: "Minimum 5 letters" },
-            maxLength: { value: 100, message: "Maximum 100 letters" },
-          })}
-          type="text"
-          placeholder="Description"
-        />
-        {errors.description && (
-          <p className="text-red-500">Description is required</p>
-        )}
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
-        <input
-          className="border"
-          type="file"
-          {...register("file", { required: "Image is required" })}
-        />
-        {errors.file && <p className="text-red-500">Image is required</p>}
+          <input className="border" {...register("description")} type="text" placeholder="Description" />
 
-        <button type="submit">Add user</button>
-      </form>
+          {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-      {elem.id ? (
-        <div>
-          <h1>Edit user</h1>
+          <input className="border" type="file" {...register("file")} />
 
-          <form onSubmit={EditSubmit}>
-            <input
-              className="border"
-              defaultValue={elem.name}
-              name="name"
-              type="text"
-              required
-            />
+          {errors.file && <p className="text-red-500">{errors.file.message}</p>}
 
-            <input
-              className="border"
-              defaultValue={elem.description}
-              name="description"
-              type="text"
-              required
-            />
+          <button type="submit">Add user</button>
 
-            <button type="submit">Edit user</button>
+        </form>
 
-            <button
-              type="button"
-              onClick={() =>
-                setelem({
-                  id: null,
-                  name: "",
-                  description: "",
-                })
-              }
-            >
-              Cancel
-            </button>
-          </form>
-        </div>
-      ) : null}
+        {elem.id ? (
+          <div>
+            <h1>Edit user</h1>
+            <form onSubmit={EditSubmit}>
 
-      {data.map((e: any) => {
-        return (
-          <div
-            key={e.id}
-            className="border border-gray-400 p-4 m-2 rounded-lg w-[200px]"
-          >
+              <input className="border" defaultValue={elem.name} name="name" type="text" required />
+
+              <input className="border" defaultValue={elem.description} name="description" type="text" required />
+
+              <button type="submit">Edit user</button>
+
+              <button type="button" onClick={() => setelem({ id: null, name: "", description: "" })}>Cancel</button>
+
+            </form>
+          </div>
+        ) : null}
+
+        {data.map((e: any) => (
+          <div key={e.id} className="border border-gray-400 p-4 m-2 rounded-lg w-[200px]">
             <img src={imgapi + e?.images?.[0]?.imageName} alt="" />
-
             <h2>{e.name}</h2>
             <p>{e.description}</p>
-
             <button onClick={() => handleDelete(e.id)}>Delete</button>
-
             <button onClick={() => setelem(e)}>Edit</button>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 };

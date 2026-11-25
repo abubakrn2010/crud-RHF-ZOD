@@ -1,53 +1,54 @@
 
 const Section2 = () => {
-
   return (
-    <section id="menu" className="w-full py-16 bg-[#fff8f0]">
+    <section className="w-full py-16 bg-[#fffaf2]">
 
       <div className="max-w-[1170px] mx-auto px-4">
 
         <div className="text-center mb-10">
 
-          <p className="text-[#a45b35] font-semibold">Our Menu</p>
+          <p className="text-[#78865b] font-semibold">
+            Our Categories
+          </p>
 
           <h2 className="text-[32px] sm:text-[42px] font-bold font-serif mt-2">
-            Popular Categories
+            Explore Our Furniture
           </h2>
-
-          <div className="w-20 h-1 bg-[#a45b35] mx-auto mt-4 rounded"></div>
 
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Espresso</h3>
+          <div className="text-center">
+            <img
+              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500"
+              className="w-full h-[200px] object-cover rounded-2xl"
+            />
+            <h3 className="font-bold text-xl mt-4">Sofas</h3>
           </div>
 
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Latte</h3>
+          <div className="text-center">
+            <img
+              src="https://images.unsplash.com/photo-1503602642458-232111445657?w=500"
+              className="w-full h-[200px] object-cover rounded-2xl"
+            />
+            <h3 className="font-bold text-xl mt-4">Chairs</h3>
           </div>
 
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Iced Coffee</h3>
+          <div className="text-center">
+            <img
+              src="https://images.unsplash.com/photo-1499933374294-4584851497cc?w=500"
+              className="w-full h-[200px] object-cover rounded-2xl"
+            />
+            <h3 className="font-bold text-xl mt-4">Tables</h3>
           </div>
 
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Cappuccino</h3>
-          </div>
-
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1572286258217-215cf8e9f3a1?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Mocha</h3>
-          </div>
-
-          <div className="bg-[#f8e9da] rounded-2xl p-5 text-center hover:-translate-y-2 transition">
-            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=300&q=80" className="w-full h-[110px] object-cover rounded-xl" />
-            <h3 className="font-semibold mt-4">Tea</h3>
+          <div className="text-center">
+            <img
+              src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500"
+              className="w-full h-[200px] object-cover rounded-2xl"
+            />
+            <h3 className="font-bold text-xl mt-4">Beds</h3>
           </div>
 
         </div>
